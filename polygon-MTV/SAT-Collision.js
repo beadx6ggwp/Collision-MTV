@@ -21,13 +21,21 @@ function SAT_Collision(polygonA, polygonB) {// 以polygonA為基準
         isSeparated = (minMax_B.min > minMax_A.max || minMax_A.min > minMax_B.max);
         if (isSeparated) break;
 
-        let overlaps = [(minMax_A.max - minMax_B.min), (minMax_A.min - minMax_B.max)];// right and left
-        let overlap = overlaps[0] < overlaps[1] ? overlaps[0] : overlaps[1];
+        // 在A物體的軸上跟在B物體軸上的運算overlap會差一個負號
+        let d1 = minMax_A.max - minMax_B.min;
+        let d2 = minMax_B.max - minMax_A.min;
+        let overlap = d1 < d2 ? d1 : d2;
         if (Math.abs(overlap) < MTV.length()) {
-            let n = normals[i].clone().normalize();
+            let n = normals[i].clone().norm();
             MTV = n.multiplyScalar(overlap);
         }
     }
+    // 在最後判斷這個是以哪個物體的分離軸為準，如果dot值為負代表方向相反了
+    // 因為D的意思是A-B的向量(以A為基準)
+    // 當物體B撞到A時，要有一個反向的MTV將它推回去，這就代表他的方向一定不會是往A
+    // 這就是為什麼用dot來判斷是否相反
+    let D = new Vector(polygonB.pos.x - polygonA.pos.x,polygonB.pos.y - polygonA.pos.y);
+    if(MTV.dot(D) < 0) MTV.multiplyScalar(-1);
 
     // isSeparated = true:Separated boxes, false:Collided boxes
     return { isCollided: !isSeparated, mtv: MTV };

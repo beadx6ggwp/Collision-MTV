@@ -76,6 +76,11 @@ polygon_data.push([
     new Vector(-100, 0),
     new Vector(-50, -50)
 ]);
+polygon_data.push([
+    new Vector(-100, -100),
+    new Vector(100, 0),
+    new Vector(-100, 100),
+]);
 
 
 function main() {
@@ -220,7 +225,7 @@ function pushPolygon() {
         randomInt(0, 0),
         Math.PI * 2 * Math.random());
 
-    obj.createSAT_Polygon(polygon_data[randomInt(0, 1)]);
+    obj.createSAT_Polygon(polygon_data[randomInt(0, 4)]);
 
     obj.satShape.angle = Math.PI * 2 * Math.random();
     //obj.rotateSpeed = toRadio(randomInt(-90, 90));
