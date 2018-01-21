@@ -10,12 +10,12 @@ function Vector(x, y) {
     // => x:42, y:21
 */
 Vector.fromArray = function (arr) {
-    return new Victor(arr[0] || 0, arr[1] || 0);
+    return new Vector(arr[0] || 0, arr[1] || 0);
 };
 
 /*
     ### Examples:
-    var vec = Victor.fromObject({ x: 42, y: 21 });
+    var vec = Vector.fromObject({ x: 42, y: 21 });
     vec.toString();
     // => x:42, y:21
 */
@@ -93,6 +93,12 @@ Vector.prototype.divideScalar = function (scalar) {
     return this;
 };
 
+Vector.prototype.limit = function (n) {
+    if (this.length() > n) {
+        this.norm().multiplyScalar(n);
+    }
+    return this;
+}
 
 Vector.prototype.dot = function (vec2) {
     return this.x * vec2.x + this.y * vec2.y;

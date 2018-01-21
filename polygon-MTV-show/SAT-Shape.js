@@ -82,6 +82,7 @@ function Shape(pos, speed, direction) {
 }
 
 Shape.prototype.createSAT_Polygon = function (points) {
+    // 因為在建立satShape時，中心座標是傳物件(by reference)，所以只須更新shape的座標即可
     this.satShape = new SAT.Polygon(this.pos, points);
 }
 Shape.prototype.createSAT_Box = function (w, h) {
