@@ -15,3 +15,11 @@ GitHub : [Click Here](https://github.com/md9830415)
 SAT檢測+MTV
 
 ![AllText](example2.gif)
+
+## Introduction
+
+rect-MTV : just rectangle
+
+polygon-MTV : simple test
+
+polygon-MTV-show : complete
