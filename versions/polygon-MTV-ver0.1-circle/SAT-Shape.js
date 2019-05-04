@@ -53,13 +53,13 @@ Polygon.prototype.getNorm = function () {
     for (let i = 1; i < vertices.length; i++) {
         let p1 = vertices[i - 1],
             p2 = vertices[i];
-        n = new Vector(p2.x - p1.x, p2.y - p1.y).normalL();
+        n = new Vector(p2.x - p1.x, p2.y - p1.y).normalL().normalize();
         norms.push(n);
     }
 
     p1 = vertices[vertices.length - 1];
     p2 = vertices[0];
-    n = new Vector(p2.x - p1.x, p2.y - p1.y).normalL();
+    n = new Vector(p2.x - p1.x, p2.y - p1.y).normalL().normalize();
     norms.push(n);
 
     return norms;

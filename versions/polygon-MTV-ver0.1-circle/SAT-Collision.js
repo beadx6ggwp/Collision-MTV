@@ -15,8 +15,11 @@ function SAT_Collision(polygonA, polygonB) {// 以polygonA為基準
     let MTV = new Vector(9000, 9000);
     // use polygonA normals to evaluate
     for (let i = 0; i < normals.length; i++) {
-        let minMax_A = getMinMax_ProjectLength(vertices_polygonA, normals[i]),
-            minMax_B = getMinMax_ProjectLength(vertices_polygonB, normals[i]);
+        // let minMax_A = getMinMax_ProjectLength(vertices_polygonA, normals[i]),
+        //     minMax_B = getMinMax_ProjectLength(vertices_polygonB, normals[i]);
+        // 如果norm已經是單位法向量，那直接dot就相當於 r*cos(theta)
+        let minMax_A = getMinMax(vertices_polygonA, normals[i]),
+            minMax_B = getMinMax(vertices_polygonB, normals[i]);
 
         isSeparated = (minMax_B.min > minMax_A.max || minMax_A.min > minMax_B.max);
         if (isSeparated) break;
@@ -48,11 +51,11 @@ function SAT_Collision(polygonA, polygonB) {// 以polygonA為基準
     // 回傳的MTV是polygonB要移動的向量，所以當作用力的方向與B與A的相對位置不一致時，需做反向
     // 正確的MTV是跟向量AB同方向，這樣才能正確地把B以最短距離推出A的範圍
     // vec(B-A) = vecAB
-    let D = new Vector(polygonB.pos.x - polygonA.pos.x,polygonB.pos.y - polygonA.pos.y);
-    if(MTV.dot(D) < 0) MTV.multiplyScalar(-1);
+    let D = new Vector(polygonB.pos.x - polygonA.pos.x, polygonB.pos.y - polygonA.pos.y);
+    if (MTV.dot(D) < 0) MTV.multiplyScalar(-1);
 
     // isSeparated = true:Separated boxes, false:Collided boxes
-    
+
     return { isCollided: !isSeparated, mtv: MTV };
 }
 
