@@ -4,7 +4,7 @@ Collision-MTV
 
 Website : [Click Here](http://davidhsu666.com)
 
-Article : [Click Here](http://davidhsu666.com/315/gamecollisiondetection)
+Article : [Click Here](http://davidhsu666.com/archives/gamecollisiondetection/)
 
 GitHub : [Click Here](https://github.com/md9830415)
 
