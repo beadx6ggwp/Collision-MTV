@@ -1,13 +1,23 @@
 // constants
 var BIG_NUMBER = 1000000;
 
+class BoundingBox {
+    constructor(left, top, width, height) {
+        this.left = left;
+        this.top = top;
+        this.width = width;
+        this.height = height;
+    }
+}
+
 // abstract class
 class Shape {
     constructor() {
-        this.fillStyle = 'rgba(255, 255, 255, 0.8)';
+        this.fillStyle = 'rgba(255, 255, 127, 0.6)';
         this.strokeStyle = '#000';
+        this.boundingBox = new BoundingBox(0, 0, 0, 0);
     }
-    update(dt){
+    update(dt) {
         throw 'Shape.update() not implemented';
     }
 
@@ -55,6 +65,15 @@ class Polygon extends Shape {
 
         // reference center position
         this.verticesRef = verticesRef;
+        // 處理優化，盡量避免new物件
+        this.vertices = [];
+        this.norms = [];
+        // 將重複使用的物間提出來初始化
+        for (let i = 0; i < verticesRef.length; i++) {
+            this.vertices.push(new Vector());
+            this.norms.push(new Vector());
+        }
+
     }
     collideWith(shape) {
         if (shape.collisionType == 'polygon') {
@@ -64,34 +83,34 @@ class Polygon extends Shape {
         }
     }
     getVertices() {
-        let vertices = [];
+        // let vertices = [];
         // Clockwise
         for (let i = 0; i < this.verticesRef.length; i++) {
             let p1 = this.verticesRef[i];
 
-            let vec = new Vector(this.pos.x + p1.x, this.pos.y + p1.y);
+            let vec = this.vertices[i];
+            vec.x = this.pos.x + p1.x;
+            vec.y = this.pos.y + p1.y;
             vec.rotateRefPoint(this.rotation, this.pos);
-
-            vertices.push(vec);
         }
-        return vertices;
+        return this.vertices;
     }
     getNorms() {
         let vertices = this.getVertices();
-        let norms = [];
+        let norms = this.norms;
         let p1, p2, n;
         // Clockwise
         for (let i = 1; i < vertices.length; i++) {
             let p1 = vertices[i - 1],
                 p2 = vertices[i];
             n = new Vector(p2.x - p1.x, p2.y - p1.y).normalL().normalize();
-            norms.push(n);
+            norms[i] = n;
         }
 
         p1 = vertices[vertices.length - 1];
         p2 = vertices[0];
         n = new Vector(p2.x - p1.x, p2.y - p1.y).normalL().normalize();
-        norms.push(n);
+        norms[0] = n;
 
         return norms;
     }
@@ -117,6 +136,24 @@ class Polygon extends Shape {
             ctx.lineTo(points[i].x, points[i].y)
         }
         ctx.closePath();
+    }
+    getBoundingBox() {
+        let minx = BIG_NUMBER, miny = BIG_NUMBER,
+            maxx = -BIG_NUMBER, maxy = -BIG_NUMBER;
+        let vertices = this.getVertices();
+        let box = this.boundingBox;
+        for (let i = 0; i < vertices.length; i++) {
+            const p = vertices[i];
+            minx = Math.min(minx, p.x);
+            miny = Math.min(miny, p.y);
+            maxx = Math.max(maxx, p.x);
+            maxy = Math.max(maxy, p.y);
+        }
+        box.left = minx;
+        box.top = miny;
+        box.width = parseFloat(maxx - minx);
+        box.height = parseFloat(maxy - miny);
+        return box;
     }
 }
 
@@ -147,6 +184,13 @@ class Circle extends Shape {
         ctx.beginPath();
         ctx.arc(this.pos.x, this.pos.y, this.radius, 0, Math.PI * 2, false);
         ctx.closePath();
+    }
+    getBoundingBox() {
+        this.boundingBox.left = this.pos.x - this.radius;
+        this.boundingBox.top = this.pos.y - this.radius;
+        this.boundingBox.width = 2 * this.radius;
+        this.boundingBox.height = 2 * this.radius;
+        return this.boundingBox;
     }
 }
 
