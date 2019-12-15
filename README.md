@@ -8,7 +8,7 @@ Article : [Click Here](http://davidhsu666.com/archives/gamecollisiondetection/)
 
 GitHub : [Click Here](https://github.com/md9830415)
 
-正常的矩形碰撞+MTV
+正常的矩形碰撞+MTV.
 
 ![AllText](example1.gif)
 
