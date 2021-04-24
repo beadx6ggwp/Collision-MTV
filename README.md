@@ -18,6 +18,8 @@ SAT檢測+MTV
 
 ## Introduction
 
+run : http://davidhsu666.com/downloads/Collision-MTV/versions/polygon-MTV-ver1.0-full/
+
 rect-MTV : just rectangle
 
 polygon-MTV : simple test
