@@ -2,11 +2,9 @@
 
 Collision-MTV
 
-Website : [Click Here](http://davidhsu666.com)
+Run polygon-MTV-ver1.0-full : http://davidhsu666.com/downloads/Collision-MTV/versions/polygon-MTV-ver1.0-full/
 
 Article : [Click Here](http://davidhsu666.com/archives/gamecollisiondetection/)
-
-GitHub : [Click Here](https://github.com/md9830415)
 
 正常的矩形碰撞+MTV.
 
@@ -17,8 +15,6 @@ SAT檢測+MTV
 ![AllText](example2.gif)
 
 ## Introduction
-
-run : http://davidhsu666.com/downloads/Collision-MTV/versions/polygon-MTV-ver1.0-full/
 
 rect-MTV : just rectangle
 
