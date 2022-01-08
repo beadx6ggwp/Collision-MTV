@@ -28,7 +28,7 @@ polygon-MTV-show : complete
 
 建立N多邊形
 ```js
-shapes.push(new Polygon(pos, verticesRef, rotation = 0));
+shapes.push(new Polygon(pos, verticesRef, rotation));
 /*
  pos: Vector(x, y)
  verticesRef: [ new Vector(100, -50),
@@ -40,7 +40,7 @@ shapes.push(new Polygon(pos, verticesRef, rotation = 0));
 
 建立圓形
 ```js
-shapes.push(new Circle(pos, radius, rotation = 0));
+shapes.push(new Circle(pos, radius, rotation));
 /*
  pos: Vector(x, y)
  radius: circle radius
