@@ -53,7 +53,9 @@ if (result.axis) {
 
 
 testcase/MTV-2Rects
+
 ![AllText](example1.gif)
 
 testcase/MTV-multiPolygons
+
 ![AllText](example2.gif)
