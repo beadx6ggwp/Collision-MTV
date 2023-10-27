@@ -1,26 +1,14 @@
 # Collision-MTV
+MTV (Minimum Translation Vector):
+- Online demo : [here](https://davidhsu666.com/downloads/Collision-MTV/demo/)
+- article : [遊戲中的碰撞檢測Collision Detection](http://davidhsu666.com/archives/gamecollisiondetection/)
 
-Collision-MTV
-
-線上執行 : [polygon-MTV-ver1.0-full](http://davidhsu666.com/downloads/Collision-MTV/versions/polygon-MTV-ver1.0-full/)
-
-技術實作筆記文章 : [Click Here](http://davidhsu666.com/archives/gamecollisiondetection/)
-
-正常的矩形碰撞+MTV.
-
-![AllText](example1.gif)
-
-SAT檢測+MTV
-
-![AllText](example2.gif)
 
 ## Introduction
 
-rect-MTV : just rectangle
+透過分離軸檢測(SAT)找出兩物體穿透後最小的推出向量(MTV)，來將重疊物體分離
 
-polygon-MTV : simple test
-
-polygon-MTV-show : complete
+![AllText](example3.gif)
 
 ## How to use
 
@@ -60,3 +48,12 @@ if (result.axis) {
     separate(shapes[i], shapes[j], result);
 }
 ```
+
+---
+
+
+testcase/MTV-2Rects
+![AllText](example1.gif)
+
+testcase/MTV-multiPolygons
+![AllText](example2.gif)
